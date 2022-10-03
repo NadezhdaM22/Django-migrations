@@ -1,0 +1,22 @@
+{% extends 'home/base.html' %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+
+{% block content %}
+  <h1>{{title}}</h1>
+  {% for post in news %}
+   <div class="alert alert-light">
+    <h3>{{post.title}}</h3>
+    <p><em>{{post.text}}</em></p>
+    {% if post.author %}
+        <p> Автор:{{ post.author }}, дата: {{ post.date}}</p>
+    {% else %}
+        <p> Автор: <b>Админ</b>, дата: {{ post.date}}</p>
+    {% endif %}
+   </div>
+  {% endfor %}
+{% endblock %}
+
