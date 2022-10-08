@@ -16,9 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users import views as usersViews
+from django.contrib.auth import views as authViews
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('reg/', usersViews.register, name='reg'),
+    path('profile/', usersViews.profile, name='profile'),
+    path('user/', authViews.LoginView.as_view(template_name='users/user.html'), name='user'),
+    path('exit/', authViews.LogoutView.as_view(template_name='users/exit.html'), name='exit'),
     path('', include('home.urls'))
 ]
+
+#Для того, чтобы браузер видел фотографии в папке
+#from django.conf.urls.static import static
+#from django.conf import settings
+
+#urlpatterns = [] # тут ваши отслеживания URL
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
